@@ -1,0 +1,1686 @@
+<!DOCTYPE html>
+<!-- saved from url=(0049)file:///C:/Users/jyjva/OneDrive/Escritorio/b.html -->
+<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 1: Fundamentos del TEA - Sección 1: Definición y conceptos</title>
+    <link rel="stylesheet" href="./Seccion1_M1_files/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1e88e5; /* Azul más vibrante */
+            --secondary-color: #64b5f6; /* Azul claro complementario */
+            --accent-color: #ff9800; /* Naranja más brillante */
+            --text-color: #333333;
+            --background-color: #f5f9ff; /* Fondo ligeramente azulado */
+            --light-color: #ffffff;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            --transition: all 0.3s ease;
+            --error-color: #f44336;
+            --success-color: #4caf50;
+            --warning-color: #ff9800;
+            --focus-outline: 3px solid #bbdefb;
+            --appear-animation: fadeIn 0.8s ease-out;
+            --card-gradient: linear-gradient(135deg, var(--primary-color), #3949ab);
+            --accent-gradient: linear-gradient(45deg, var(--accent-color), #ffb74d);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            padding: 0;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: var(--card-gradient);
+            color: var(--light-color);
+            padding: 40px 0;
+            text-align: center;
+            margin-bottom: 40px;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+            z-index: 1;
+        }
+        
+        header .container {
+            position: relative;
+            z-index: 2;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--light-color);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        h2 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin: 30px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--accent-color);
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin: 25px 0 15px;
+            padding-left: 12px;
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        h4 {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            margin: 20px 0 10px;
+        }
+        
+        p {
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+        
+        ul, ol {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .highlight-box {
+            background-color: var(--secondary-color);
+            color: var(--light-color);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin: 30px 0;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .image-container {
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .image-container img {
+            max-width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            margin: 30px 0;
+            overflow: hidden;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Flip Cards - Mejorado */
+        .flip-cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 30px 0;
+            gap: 20px;
+        }
+        
+        .flip-card {
+            background-color: transparent;
+            width: calc(33.333% - 20px);
+            height: 250px;
+            perspective: 1000px;
+            margin-bottom: 20px;
+        }
+        
+        @media (max-width: 992px) {
+            .flip-card {
+                width: calc(50% - 20px);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .flip-card {
+                width: 100%;
+            }
+        }
+        
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            box-shadow: var(--box-shadow);
+            border-radius: var(--border-radius);
+        }
+        
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: var(--border-radius);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow: auto;
+        }
+        
+        .flip-card-front {
+            background: var(--card-gradient);
+            color: var(--light-color);
+            cursor: pointer;
+        }
+        
+        .flip-card-back {
+            background: var(--accent-gradient);
+            color: var(--text-color);
+            transform: rotateY(180deg);
+            cursor: pointer;
+        }
+        
+        .flip-card i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .flip-card-hint {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: var(--light-color);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+        
+        /* Accordion - Mejorado */
+        .accordion {
+            margin: 30px 0;
+        }
+        
+        .accordion-item {
+            margin-bottom: 10px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .accordion-header {
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+        
+        .accordion-header:hover {
+            background-color: #3a6d98;
+        }
+        
+        .accordion-header h4 {
+            margin: 0;
+            color: var(--light-color);
+        }
+        
+        .accordion-content {
+            background-color: var(--light-color);
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            max-height: 0;
+        }
+        
+        .accordion-content-inner {
+            padding: 20px;
+        }
+        
+        .accordion-item.active .accordion-content {
+            max-height: 1000px;
+        }
+        
+        .accordion-icon {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        /* Interactive Table */
+        .interactive-table {
+            width: 100%;
+            margin: 30px 0;
+            box-shadow: var(--box-shadow);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            overflow-x: auto;
+        }
+        
+        .interactive-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .interactive-table th, .interactive-table td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .interactive-table th {
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            position: sticky;
+            top: 0;
+        }
+        
+        .interactive-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        .interactive-table tr:hover {
+            background-color: #ddd;
+        }
+        
+        /* True/False Questions - Mejorado */
+        .quiz-container {
+            margin: 30px 0;
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .quiz-question {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .quiz-question:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .quiz-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .quiz-option {
+            padding: 10px 20px;
+            background-color: var(--secondary-color);
+            color: var(--light-color);
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+        
+        .quiz-option:hover {
+            background-color: #769ec3;
+        }
+        
+        .quiz-option:focus {
+            outline: var(--focus-outline);
+        }
+        
+        .quiz-option.selected {
+            background-color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            display: none;
+            font-weight: bold;
+        }
+        
+        .feedback.correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .feedback.incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Drag and Drop Activity - Mejorado */
+        .drag-drop-container {
+            margin: 30px 0;
+            padding: 20px;
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .draggable-items {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .draggable {
+            padding: 10px 15px;
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            border-radius: var(--border-radius);
+            cursor: grab;
+            user-select: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .draggable:active {
+            cursor: grabbing;
+        }
+        
+        .draggable.dragging {
+            opacity: 0.5;
+            transform: scale(1.05);
+            z-index: 100;
+        }
+        
+        .draggable.correct {
+            background-color: #d4edda;
+            border: 2px solid #28a745;
+        }
+        
+        .draggable.incorrect {
+            background-color: #f8d7da;
+            border: 2px solid #dc3545;
+            animation: shake 0.5s;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        
+        .drop-targets {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .drop-targets {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .drop-target {
+            padding: 15px;
+            min-height: 200px;
+            border: 2px dashed var(--primary-color);
+            border-radius: var(--border-radius);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .drop-target h4 {
+            margin: 0 0 10px 0;
+            color: var(--primary-color);
+            text-align: center;
+        }
+        
+        .drop-target.dragover {
+            background-color: rgba(70, 130, 180, 0.1);
+            border: 2px solid var(--primary-color);
+        }
+        
+        /* Accesibilidad y elementos TEA-friendly */
+        .accessibility-controls {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .accessibility-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: var(--border-radius);
+            background-color: var(--secondary-color);
+            color: var(--light-color);
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+        }
+        
+        .accessibility-btn:hover {
+            background-color: var(--primary-color);
+        }
+        
+        .accessibility-btn:focus {
+            outline: var(--focus-outline);
+        }
+        
+        .high-contrast-mode {
+            --primary-color: #000080;
+            --secondary-color: #3030AA;
+            --accent-color: #FFD700;
+            --text-color: #000000;
+            --background-color: #FFFFFF;
+        }
+        
+        .reduced-motion {
+            --transition: none !important;
+        }
+        
+        .reduced-motion * {
+            animation: none !important;
+            transition: none !important;
+        }
+        
+        .simplified-interface .non-essential {
+            display: none !important;
+        }
+        
+        .large-text {
+            font-size: 1.2em !important;
+        }
+        
+        .large-text h1 { font-size: 3rem !important; }
+        .large-text h2 { font-size: 2.4rem !important; }
+        .large-text h3 { font-size: 1.8rem !important; }
+        .large-text h4 { font-size: 1.5rem !important; }
+        .large-text p, .large-text li { font-size: 1.25rem !important; }
+        .large-text .quiz-option, .large-text button { font-size: 1.2rem !important; }
+        
+        /* Ajustes para mantener la integridad del diseño con texto grande */
+        .large-text .flip-card {
+            height: 300px !important;
+        }
+        
+        .large-text .icon-item {
+            width: 180px !important;
+            padding: 20px !important;
+        }
+        
+        .large-text .draggable {
+            padding: 12px 18px !important;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background-color: #e9ecef;
+            border-radius: 10px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background-color: var(--accent-color);
+            width: 20%; /* Simulando progreso */
+            transition: width 0.3s ease;
+        }
+        
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        
+        .nav-button {
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+        }
+        
+        .nav-button:hover {
+            background-color: #3a6d98;
+        }
+        
+        .nav-button:focus {
+            outline: var(--focus-outline);
+        }
+        
+        .nav-button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        #progress-message {
+            text-align: center;
+            margin: 10px 0;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .icon-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin: 30px 0;
+        }
+        
+        .icon-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 150px;
+            background-color: var(--light-color);
+            padding: 20px 15px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .icon-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        .icon-item i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            transition: transform 0.3s;
+        }
+        
+        .icon-item:hover i {
+            transform: scale(1.2);
+            color: var(--accent-color);
+        }
+        
+        .icon-item p {
+            margin: 0;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+        
+        /* Temporizador visual */
+        .visual-timer {
+            width: 100%;
+            height: 8px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            margin-top: 10px;
+            overflow: hidden;
+            display: none;
+        }
+        
+        .timer-progress {
+            height: 100%;
+            background-color: var(--accent-color);
+            width: 100%;
+            transition: width 1s linear;
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+        }
+        
+        /* Progress Tracker */
+        .progress-tracker {
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            margin: 20px 0;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .progress-title {
+            margin-bottom: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        /* Tooltip que se muestra al completar tareas */
+        .completion-tooltip {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--success-color);
+            color: white;
+            padding: 15px 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s, transform 0.3s;
+            max-width: 300px;
+            text-align: center;
+        }
+        
+        .completion-tooltip.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Estrategias y herramientas para la atención de estudiantes con TEA</h1>
+            <p>Módulo 1: Fundamentos del Trastorno del Espectro Autista (TEA)</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Control de accesibilidad simplificado -->
+        <div class="accessibility-controls">
+            <button class="accessibility-btn" id="toggle-text-size">
+                <i class="fas fa-text-height"></i> Texto grande
+            </button>
+        </div>
+        
+        <h2>Sección 1: Definición y conceptos del TEA</h2>
+        
+        <div class="image-container">
+            <img src="./Seccion1_M1_files/Designer.jpg" alt="Representación visual de la neurodiversidad y el espectro autista">
+            <p><em>Imagen: Representación del concepto de neurodiversidad y el espectro autista</em></p>
+        </div>
+        
+        <section style="animation-delay: 0s;">
+            <h3>1. Introducción al Trastorno del Espectro Autista</h3>
+            
+            <p>El Trastorno del Espectro Autista (TEA) representa un conjunto de condiciones heterogéneas del neurodesarrollo que se caracterizan por dificultades en la comunicación social y patrones de comportamiento, intereses o actividades restrictivos y repetitivos. El término "espectro" refleja la amplia variabilidad en la presentación y severidad de los síntomas entre las personas que comparten este diagnóstico.</p>
+            
+            <p>Comprender el TEA como un espectro nos permite reconocer que cada persona con esta condición presenta un perfil único de fortalezas y desafíos. Mientras algunos individuos pueden requerir apoyo significativo en su vida diaria, otros pueden funcionar de manera más independiente y mostrar habilidades excepcionales en áreas específicas como la memoria, las matemáticas, la música o el arte.</p>
+            
+            <p>En el contexto educativo, entender el TEA desde esta perspectiva de diversidad es fundamental para desarrollar estrategias de apoyo efectivas que respondan a las necesidades individuales de cada estudiante, reconociendo tanto sus desafíos como sus potencialidades.</p>
+            
+           <style>
+  .video-container {
+    position: relative;
+    /* Ajusta el tamaño del contenedor a lo que necesites */
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%; /* Mantiene la relación de aspecto 16:9 */
+    overflow: hidden;
+    margin: 0 auto; /* Centra horizontalmente si el contenedor tiene un ancho fijo menor al padre */
+  }
+
+  .video-container iframe {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 90%;
+    height: 90%;
+    transform: translate(-50%, -50%);
+    /* Opcional: border: none; */
+  }
+</style>
+
+<div class="video-container">
+  <iframe src="./Seccion1_M1_files/1070088923.html" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" title="Video 1 Sección 1">
+  </iframe>
+</div>
+
+        </section>
+        
+        <section style="animation-delay: 0.2s;">
+            <h3>2. Evolución histórica del concepto de autismo</h3>
+            
+            <p>La comprensión del autismo ha evolucionado significativamente a lo largo del tiempo. El término "autismo" fue utilizado por primera vez en 1911 por el psiquiatra Eugen Bleuler para describir un síntoma de las personas con esquizofrenia que mostraban dificultades para relacionarse con otros. Sin embargo, fue Leo Kanner en 1943 quien describió por primera vez el "autismo infantil" como una entidad diagnóstica distinta, basándose en sus observaciones de 11 niños con alteraciones en la interacción social, el lenguaje y comportamientos repetitivos.</p>
+            
+            <p>Casi simultáneamente, Hans Asperger publicó sus observaciones sobre niños con características similares, aunque con habilidades lingüísticas conservadas y a menudo con capacidades intelectuales normales o superiores. Por décadas, el autismo se consideró un trastorno raro y se asociaba frecuentemente con la esquizofrenia infantil o con teorías psicogénicas que culpaban inadecuadamente a los estilos de crianza.</p>
+            
+            <p>En la década de 1980, gracias a investigaciones más rigurosas, se consolidó el reconocimiento del autismo como un trastorno del neurodesarrollo con bases biológicas. Los sistemas de clasificación diagnóstica comenzaron a incluir el autismo como una categoría específica, y progresivamente la concepción evolucionó desde un modelo categórico hacia un modelo dimensional que reconoce la variabilidad sintomática.</p>
+            
+            <p>El DSM-5 (Manual Diagnóstico y Estadístico de los Trastornos Mentales, quinta edición) publicado en 2013, marcó un cambio paradigmático al unificar las categorías previamente separadas (Trastorno Autista, Síndrome de Asperger, Trastorno Desintegrativo Infantil y Trastorno Generalizado del Desarrollo No Especificado) bajo la denominación única de "Trastorno del Espectro Autista", reconociendo así oficialmente su naturaleza dimensional.</p>
+            
+            <div class="accordion">
+                <div class="accordion-item" style="opacity: 1; transform: translateY(0px); transition: opacity 0.6s ease-out, transform 0.6s ease-out;">
+                    <div class="accordion-header">
+                        <h4>Etapas clave en la evolución del concepto de autismo</h4>
+                        <span class="accordion-icon">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-content-inner">
+                            <p><strong>1911:</strong> Eugen Bleuler utiliza por primera vez el término "autismo".</p>
+                            <p><strong>1943:</strong> Leo Kanner describe el "autismo infantil" como un síndrome distinto.</p>
+                            <p><strong>1944:</strong> Hans Asperger publica su trabajo sobre "psicopatía autista" (posteriormente conocido como Síndrome de Asperger).</p>
+                            <p><strong>1960-1970:</strong> Predominio de teorías psicogénicas (como la teoría de la "madre refrigeradora").</p>
+                            <p><strong>1980:</strong> El DSM-III incluye el autismo como categoría diagnóstica específica bajo "Trastornos Generalizados del Desarrollo".</p>
+                            <p><strong>1994:</strong> El DSM-IV expande los criterios e incluye el Síndrome de Asperger como entidad diagnóstica.</p>
+                            <p><strong>2013:</strong> El DSM-5 unifica los diagnósticos bajo el concepto de "Trastorno del Espectro Autista".</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section style="animation-delay: 0.4s;">
+            <h3>3. Criterios diagnósticos actuales</h3>
+            
+            <p>Según el Manual Diagnóstico y Estadístico de los Trastornos Mentales en su quinta edición (DSM-5), el diagnóstico del Trastorno del Espectro Autista se estructura en base a dimensiones sintomáticas específicas, alejándose del enfoque categórico de versiones anteriores. Esta conceptualización dimensional refleja mejor la heterogeneidad clínica observada en la población con TEA.</p>
+            
+            <div class="diagnostic-criteria">
+                <div class="criteria-domain">
+                    <div class="domain-header">
+                        <h4><i class="fas fa-users"></i> Dominio A: Déficits persistentes en comunicación social e interacción social</h4>
+                    </div>
+                    <div class="domain-content">
+                        <p>Estos déficits se manifiestan en múltiples contextos actuales o históricos, a través de las siguientes dimensiones:</p>
+                        
+                        <ul class="criteria-list">
+                            <li class="criteria-item">
+                                <strong>Déficits en reciprocidad socioemocional</strong>
+                                <div class="examples">Por ejemplo: acercamiento social anormal, fracaso en la conversación bidireccional, disminución en compartir intereses o emociones, ausencia de iniciativa en la interacción social</div>
+                            </li>
+                            <li class="criteria-item">
+                                <strong>Déficits en conductas comunicativas no verbales</strong>
+                                <div class="examples">Por ejemplo: dificultades en integrar comunicación verbal y no verbal, contacto visual atípico, dificultades en la comprensión y uso de gestos, falta total de expresividad facial o comunicación no verbal</div>
+                            </li>
+                            <li class="criteria-item">
+                                <strong>Déficits para desarrollar, mantener y comprender relaciones</strong>
+                                <div class="examples">Por ejemplo: dificultades para ajustar el comportamiento a diversos contextos sociales, dificultades para compartir juegos imaginativos o hacer amigos, aparente desinterés por otras personas</div>
+                            </li>
+                        </ul>
+                        
+                        <p>En el contexto educativo chileno, estas dificultades pueden manifestarse en la resistencia a participar en actividades grupales tradicionalmente valoradas en el sistema escolar, como disertaciones o trabajos colaborativos, lo que puede impactar significativamente en el rendimiento académico y la evaluación si no se implementan adecuaciones pertinentes.</p>
+                    </div>
+                </div>
+                
+                <div class="criteria-domain">
+                    <div class="domain-header">
+                        <h4><i class="fas fa-sync-alt"></i> Dominio B: Patrones restrictivos y repetitivos de comportamiento, intereses o actividades</h4>
+                    </div>
+                    <div class="domain-content">
+                        <p>Se manifiestan en al menos dos de los siguientes elementos, ya sea en el presente o por historia previa:</p>
+                        
+                        <ul class="criteria-list">
+                            <li class="criteria-item">
+                                <strong>Movimientos, uso de objetos o habla estereotipados o repetitivos</strong>
+                                <div class="examples">Por ejemplo: estereotipias motoras simples, alineación de juguetes, cambio de lugar de los objetos, ecolalia, frases idiosincrásicas</div>
+                            </li>
+                            <li class="criteria-item">
+                                <strong>Insistencia en la invarianza, adherencia inflexible a rutinas o patrones de comportamiento verbal y no verbal ritualizado</strong>
+                                <div class="examples">Por ejemplo: malestar extremo ante pequeños cambios, dificultades con las transiciones, patrones de pensamiento rígidos, rituales de saludo, necesidad de seguir siempre la misma ruta o comer los mismos alimentos</div>
+                            </li>
+                            <li class="criteria-item">
+                                <strong>Intereses altamente restrictivos y fijos con intensidad o foco anormal</strong>
+                                <div class="examples">Por ejemplo: fuerte apego o preocupación por objetos inusuales, intereses excesivamente circunscritos o perseverantes</div>
+                            </li>
+                            <li class="criteria-item">
+                                <strong>Hiper o hiporreactividad a estímulos sensoriales o interés inusual en elementos sensoriales del entorno</strong>
+                                <div class="examples">Por ejemplo: aparente indiferencia al dolor/temperatura, respuesta adversa a sonidos o texturas específicas, olfateo o palpación excesiva de objetos, fascinación visual por las luces o el movimiento</div>
+                            </li>
+                        </ul>
+                        
+                        <p>En el sistema educativo chileno, es particularmente relevante considerar cómo los ambientes escolares tradicionales, a menudo caracterizados por altos niveles de estimulación sensorial (ruido, luminosidad fluorescente, espacios concurridos), pueden representar verdaderos desafíos para estudiantes con TEA, especialmente considerando las características sensoriales descritas en este dominio.</p>
+                    </div>
+                </div>
+                
+                <div class="criteria-domain">
+                    <div class="domain-header">
+                        <h4><i class="fas fa-calendar-alt"></i> Criterios adicionales fundamentales</h4>
+                    </div>
+                    <div class="domain-content">
+                        <ul class="criteria-list">
+                            <li class="criteria-item">
+                                <strong>Edad de aparición</strong>
+                                <div class="examples">Los síntomas deben estar presentes en el período de desarrollo temprano (aunque pueden no manifestarse plenamente hasta que las demandas sociales excedan las capacidades limitadas, o pueden estar enmascarados en etapas posteriores por estrategias aprendidas)</div>
+                            </li>
+                            <li class="criteria-item">
+                                <strong>Impacto funcional</strong>
+                                <div class="examples">Los síntomas causan un deterioro clínicamente significativo en áreas sociales, ocupacionales u otras importantes del funcionamiento habitual</div>
+                            </li>
+                            <li class="criteria-item">
+                                <strong>Diagnóstico diferencial</strong>
+                                <div class="examples">Las alteraciones no se explican mejor por la discapacidad intelectual o por el retraso global del desarrollo</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h4>Importante:</h4>
+                <p>El diagnóstico de TEA ahora especifica niveles de severidad o "niveles de apoyo" requeridos:</p>
+                <ul>
+                    <li><strong>Nivel 1:</strong> "Requiere apoyo"</li>
+                    <li><strong>Nivel 2:</strong> "Requiere apoyo sustancial"</li>
+                    <li><strong>Nivel 3:</strong> "Requiere apoyo muy sustancial"</li>
+                </ul>
+                <p>Estos niveles se determinan en función de las dificultades en la comunicación social y los comportamientos restrictivos/repetitivos, y pueden ser diferentes para cada dominio.</p>
+            </div>
+        </section>
+        
+        <section style="animation-delay: 0.6s;">
+            <h3>4. Características principales del TEA</h3>
+            
+            <p>Aunque cada persona con TEA es única, existen características comunes que pueden presentarse en diferentes grados. Estas incluyen:</p>
+            
+            <div class="flip-cards-container" style="opacity: 1; transform: translateY(0px); transition: opacity 0.6s ease-out, transform 0.6s ease-out;">
+                <div class="flip-card" tabindex="0" aria-label="Tarjeta sobre comunicación, haz clic para ver el reverso">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <i class="fas fa-comments"></i>
+                            <h4>Comunicación</h4>
+                            <div class="flip-card-hint">Clic para girar</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <h4>Características comunicativas</h4>
+                            <p>Pueden ir desde ausencia del habla hasta lenguaje fluido pero atípico en aspectos pragmáticos. Dificultades para entender bromas, ironía o lenguaje figurado.</p>
+                            <div class="flip-card-hint">Clic para volver</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flip-card" tabindex="0" aria-label="Tarjeta sobre interacción social, haz clic para ver el reverso">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <i class="fas fa-users"></i>
+                            <h4>Interacción social</h4>
+                            <div class="flip-card-hint">Clic para girar</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <h4>Aspectos sociales</h4>
+                            <p>Dificultades para establecer y mantener relaciones sociales, comprender reglas sociales implícitas o inferir estados mentales de otros (teoría de la mente).</p>
+                            <div class="flip-card-hint">Clic para volver</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flip-card" tabindex="0" aria-label="Tarjeta sobre conductas repetitivas, haz clic para ver el reverso">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <i class="fas fa-sync-alt"></i>
+                            <h4>Conductas repetitivas</h4>
+                            <div class="flip-card-hint">Clic para girar</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <h4>Patrones conductuales</h4>
+                            <p>Movimientos repetitivos (aleteo, balanceo), adherencia a rutinas, intereses restringidos e intensos, y resistencia al cambio.</p>
+                            <div class="flip-card-hint">Clic para volver</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <p>Además de las características diagnósticas centrales, muchas personas con TEA pueden presentar:</p>
+            
+            <div class="icon-box">
+                <div class="icon-item" style="opacity: 1; transform: translateY(0px); transition: opacity 0.6s ease-out, transform 0.6s ease-out;">
+                    <i class="fas fa-brain"></i>
+                    <p>Procesamiento sensorial atípico</p>
+                </div>
+                <div class="icon-item" style="opacity: 1; transform: translateY(0px); transition: opacity 0.6s ease-out, transform 0.6s ease-out;">
+                    <i class="fas fa-lightbulb"></i>
+                    <p>Habilidades cognitivas irregulares</p>
+                </div>
+                <div class="icon-item" style="opacity: 1; transform: translateY(0px); transition: opacity 0.6s ease-out, transform 0.6s ease-out;">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>Dificultades de regulación emocional</p>
+                </div>
+                <div class="icon-item" style="opacity: 1; transform: translateY(0px); transition: opacity 0.6s ease-out, transform 0.6s ease-out;">
+                    <i class="fas fa-bed"></i>
+                    <p>Alteraciones del sueño</p>
+                </div>
+            </div>
+            
+            <p>Es fundamental entender que las características del TEA se manifiestan de manera distinta según la edad, el nivel de desarrollo, las habilidades cognitivas, el contexto cultural y las intervenciones recibidas. Además, estas pueden cambiar a lo largo del desarrollo de la persona.</p>
+            
+            <div class="interactive-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Área</th>
+                            <th>Manifestaciones comunes</th>
+                            <th>Impacto en el contexto educativo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Comunicación</td>
+                            <td>Lenguaje limitado o ausente, ecolalia, prosodia atípica, interpretación literal</td>
+                            <td>Dificultades para seguir instrucciones complejas, participar en discusiones grupales o expresar necesidades</td>
+                        </tr>
+                        <tr>
+                            <td>Interacción social</td>
+                            <td>Dificultad para iniciar o mantener interacciones, comprender normas sociales implícitas</td>
+                            <td>Aislamiento social, conflictos por malentendidos, dificultades en trabajos grupales</td>
+                        </tr>
+                        <tr>
+                            <td>Flexibilidad cognitiva y conductual</td>
+                            <td>Resistencia al cambio, intereses restringidos, rutinas rígidas</td>
+                            <td>Estrés ante cambios de horario, dificultades en transiciones, hiperfocalización en temas de interés</td>
+                        </tr>
+                        <tr>
+                            <td>Procesamiento sensorial</td>
+                            <td>Hiper o hiposensibilidad a estímulos auditivos, visuales, táctiles, olfativos</td>
+                            <td>Sobrecarga sensorial en ambientes ruidosos, malestar con ciertas texturas de materiales</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <section style="animation-delay: 0.8s;">
+            <h3>5. El espectro autista: niveles de apoyo</h3>
+            
+            <p>Como mencionamos anteriormente, el DSM-5 establece tres niveles de apoyo para clasificar la severidad del TEA, basándose en el impacto funcional de los síntomas y las necesidades de apoyo de la persona. Es importante destacar que una misma persona puede requerir diferentes niveles de apoyo en distintos dominios o en diferentes momentos de su vida.</p>
+            
+            <div class="accordion">
+                <div class="accordion-item" style="opacity: 1; transform: translateY(0px); transition: opacity 0.6s ease-out, transform 0.6s ease-out;">
+                    <div class="accordion-header" tabindex="0" aria-expanded="false" aria-controls="accordion-content-1">
+                        <h4>Nivel 1: "Requiere apoyo"</h4>
+                        <span class="accordion-icon">+</span>
+                    </div>
+                    <div class="accordion-content" id="accordion-content-1">
+                        <div class="accordion-content-inner">
+                            <h5>Comunicación social:</h5>
+                            <p>Sin apoyos, las deficiencias en la comunicación social causan problemas significativos. La persona tiene dificultades para iniciar interacciones sociales y muestra ejemplos claros de respuestas atípicas o insatisfactorias a las aperturas sociales de otros. Puede parecer que tiene un interés reducido en las interacciones sociales.</p>
+                            
+                            <h5>Comportamientos restrictivos y repetitivos:</h5>
+                            <p>La inflexibilidad del comportamiento causa interferencia significativa con el funcionamiento en uno o más contextos. Los problemas de organización y planificación dificultan la autonomía.</p>
+                            
+                            <h5>En el ámbito educativo:</h5>
+                            <p>Estudiantes que pueden seguir el currículo general con adaptaciones mínimas, como tiempo adicional, instrucciones claras y explícitas, o asientos preferenciales. Pueden requerir apoyo para habilidades sociales y organización.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item" style="opacity: 1; transform: translateY(0px); transition: opacity 0.6s ease-out, transform 0.6s ease-out;">
+                    <div class="accordion-header" tabindex="0" aria-expanded="false" aria-controls="accordion-content-2">
+                        <h4>Nivel 2: "Requiere apoyo sustancial"</h4>
+                        <span class="accordion-icon">+</span>
+                    </div>
+                    <div class="accordion-content" id="accordion-content-2">
+                        <div class="accordion-content-inner">
+                            <h5>Comunicación social:</h5>
+                            <p>Deficiencias notables en las habilidades de comunicación social verbal y no verbal; problemas sociales evidentes incluso con apoyos presentes; iniciación limitada de interacciones sociales; y respuestas reducidas o anormales a las aperturas sociales de otros.</p>
+                            
+                            <h5>Comportamientos restrictivos y repetitivos:</h5>
+                            <p>Inflexibilidad de comportamiento, dificultades para afrontar cambios u otros comportamientos restringidos/repetitivos que aparecen con frecuencia suficiente como para ser obvios al observador casual e interfieren con el funcionamiento en diversos contextos. Ansiedad y/o dificultad para cambiar el foco de acción.</p>
+                            
+                            <h5>En el ámbito educativo:</h5>
+                            <p>Estudiantes que requieren adaptaciones curriculares más significativas, apoyos visuales extensos, rutinas predecibles y espacios de descompresión sensorial. Pueden necesitar un asistente técnico educativo para algunas actividades.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item" style="opacity: 1; transform: translateY(0px); transition: opacity 0.6s ease-out, transform 0.6s ease-out;">
+                    <div class="accordion-header" tabindex="0" aria-expanded="false" aria-controls="accordion-content-3">
+                        <h4>Nivel 3: "Requiere apoyo muy sustancial"</h4>
+                        <span class="accordion-icon">+</span>
+                    </div>
+                    <div class="accordion-content" id="accordion-content-3">
+                        <div class="accordion-content-inner">
+                            <h5>Comunicación social:</h5>
+                            <p>Deficiencias graves en las habilidades de comunicación social verbal y no verbal que causan alteraciones graves del funcionamiento, iniciación muy limitada de interacciones sociales y respuesta mínima a las aperturas sociales de otros.</p>
+                            
+                            <h5>Comportamientos restrictivos y repetitivos:</h5>
+                            <p>Inflexibilidad de comportamiento, extrema dificultad para afrontar cambios u otros comportamientos restringidos/repetitivos que interfieren notablemente con el funcionamiento en todos los ámbitos. Ansiedad intensa/dificultad para cambiar el foco de acción.</p>
+                            
+                            <h5>En el ámbito educativo:</h5>
+                            <p>Estudiantes que requieren un currículo altamente individualizado, sistemas de comunicación aumentativa/alternativa, apoyo constante de un profesional, y entornos estructurados con predictibilidad máxima.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <p>Es fundamental comprender que los niveles de apoyo no son etiquetas permanentes ni deterministas. Con los apoyos adecuados, muchas personas con TEA pueden desarrollar estrategias que les permitan funcionar de manera más independiente y reducir sus necesidades de apoyo con el tiempo. Además, estos niveles no deben utilizarse para limitar expectativas sobre el potencial de desarrollo de los estudiantes con TEA.</p>
+        </section>
+        
+        <section style="animation-delay: 1s;">
+            <h3>6. Prevalencia y factores asociados al TEA</h3>
+            
+            <p>La prevalencia estimada del TEA ha aumentado significativamente en las últimas décadas. Según estudios recientes, afecta aproximadamente a 1 de cada 36-54 niños a nivel global, con una proporción de 4:1 entre hombres y mujeres, aunque se reconoce que las mujeres podrían estar infradiagnosticadas debido a manifestaciones diferentes del trastorno.</p>
+            
+            <p>Este incremento en la prevalencia se atribuye a múltiples factores, incluyendo:</p>
+            <ul>
+                <li>Ampliación de los criterios diagnósticos</li>
+                <li>Mayor conciencia y conocimiento profesional sobre el TEA</li>
+                <li>Mejores herramientas de detección</li>
+                <li>Reducción del estigma asociado al diagnóstico</li>
+                <li>Posibles factores ambientales aún en estudio</li>
+            </ul>
+            
+            <p>Respecto a la etiología del TEA, la investigación actual apunta a un origen multifactorial complejo que involucra:</p>
+            
+            <h4>Factores genéticos</h4>
+            <p>Los estudios en gemelos y familias han demostrado una fuerte base genética para el TEA, con una heredabilidad estimada entre el 60-90%. Se han identificado cientos de genes de riesgo, muchos relacionados con el desarrollo neuronal, la formación de sinapsis y la comunicación entre neuronas.</p>
+            
+            <h4>Factores ambientales</h4>
+            <p>Ciertos factores ambientales pueden interactuar con la predisposición genética, especialmente durante períodos críticos del desarrollo prenatal. Entre estos se incluyen:</p>
+            <ul>
+                <li>Edad avanzada de los padres</li>
+                <li>Complicaciones durante el embarazo o el parto (como infecciones maternas, diabetes gestacional, exposición a ciertos medicamentos)</li>
+                <li>Intervalos cortos entre embarazos</li>
+            </ul>
+            
+            <h4>Comorbilidades frecuentes</h4>
+            <p>Las personas con TEA presentan frecuentemente condiciones comórbidas que deben ser consideradas en el ámbito educativo:</p>
+            
+            <div class="quiz-container">
+                <h4>Autoevaluación: Comorbilidades frecuentes en el TEA</h4>
+                <p>Indique si las siguientes afirmaciones son verdaderas o falsas:</p>
+                
+                <div class="quiz-question" data-question-id="1" data-answer="true" style="opacity: 1; transform: translateY(0px); transition: opacity 0.6s ease-out, transform 0.6s ease-out;">
+                    <p>1. Aproximadamente el 30-50% de las personas con TEA presentan algún grado de discapacidad intelectual.</p>
+                    <div class="quiz-options">
+                        <button class="quiz-option" data-value="true">Verdadero</button>
+                        <button class="quiz-option" data-value="false">Falso</button>
+                    </div>
+                    <div class="feedback"></div>
+                    <div class="visual-timer">
+                        <div class="timer-progress"></div>
+                    </div>
+                </div>
+                
+                <div class="quiz-question" data-question-id="2" data-answer="true" style="opacity: 1; transform: translateY(0px); transition: opacity 0.6s ease-out, transform 0.6s ease-out;">
+                    <p>2. Los trastornos del sueño son muy frecuentes en personas con TEA, afectando a entre el 40-80% de esta población.</p>
+                    <div class="quiz-options">
+                        <button class="quiz-option" data-value="true">Verdadero</button>
+                        <button class="quiz-option" data-value="false">Falso</button>
+                    </div>
+                    <div class="feedback"></div>
+                    <div class="visual-timer">
+                        <div class="timer-progress"></div>
+                    </div>
+                </div>
+                
+                <div class="quiz-question" data-question-id="3" data-answer="false" style="opacity: 1; transform: translateY(0px); transition: opacity 0.6s ease-out, transform 0.6s ease-out;">
+                    <p>3. Las condiciones de salud mental como ansiedad y depresión son relativamente raras en personas con TEA.</p>
+                    <div class="quiz-options">
+                        <button class="quiz-option selected" data-value="true" disabled="" style="background-color: var(--error-color);">Verdadero</button>
+                        <button class="quiz-option" data-value="false" disabled="" style="background-color: var(--success-color); opacity: 0.7;">Falso</button>
+                    </div>
+                    <div class="feedback incorrect" style="display: block;">Incorrecto. La respuesta correcta es Falso.</div>
+                    <div class="visual-timer" style="display: block;">
+                        <div class="timer-progress" style="width: 0%;"></div>
+                    </div>
+                </div>
+                
+                <div class="quiz-question" data-question-id="4" data-answer="true" style="opacity: 1; transform: translateY(0px); transition: opacity 0.6s ease-out, transform 0.6s ease-out;">
+                    <p>4. El TDAH es una de las comorbilidades más frecuentes en personas con TEA, con tasas de co-ocurrencia de hasta el 60%.</p>
+                    <div class="quiz-options">
+                        <button class="quiz-option selected" data-value="true" disabled="" style="background-color: var(--success-color);">Verdadero</button>
+                        <button class="quiz-option" data-value="false" disabled="">Falso</button>
+                    </div>
+                    <div class="feedback correct" style="display: block;">¡Correcto! Tu respuesta es correcta.</div>
+                    <div class="visual-timer" style="display: block;">
+                        <div class="timer-progress" style="width: 0%;"></div>
+                    </div>
+                </div>
+                
+                <div class="quiz-question" data-question-id="5" data-answer="true" style="opacity: 1; transform: translateY(0px); transition: opacity 0.6s ease-out, transform 0.6s ease-out;">
+                    <p>5. La epilepsia es más común en personas con TEA que en la población general.</p>
+                    <div class="quiz-options">
+                        <button class="quiz-option" data-value="true">Verdadero</button>
+                        <button class="quiz-option" data-value="false">Falso</button>
+                    </div>
+                    <div class="feedback"></div>
+                    <div class="visual-timer">
+                        <div class="timer-progress"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section style="animation-delay: 1.2s;">
+            <h3>Actividad: Clasificación de características</h3>
+            
+            <div class="drag-drop-container">
+                <h4>Clasifique las siguientes características según correspondan a comunicación social o a patrones restrictivos/repetitivos:</h4>
+                
+                <div class="draggable-items" id="draggable-container">
+                    <div class="draggable" draggable="true" data-category="comunicacion" aria-grabbed="false" aria-description="Elemento arrastrable: Dificultad para mantener conversaciones recíprocas">Dificultad para mantener conversaciones recíprocas</div>
+                    <div class="draggable" draggable="true" data-category="comunicacion" aria-grabbed="false" aria-description="Elemento arrastrable: Uso limitado del contacto visual">Uso limitado del contacto visual</div>
+                    <div class="draggable" draggable="true" data-category="repetitivo" aria-grabbed="false" aria-description="Elemento arrastrable: Movimientos estereotipados como aleteo de manos">Movimientos estereotipados como aleteo de manos</div>
+                    <div class="draggable" draggable="true" data-category="repetitivo" aria-grabbed="false" aria-description="Elemento arrastrable: Insistencia en seguir rutinas exactas">Insistencia en seguir rutinas exactas</div>
+                    <div class="draggable" draggable="true" data-category="comunicacion" aria-grabbed="false" aria-description="Elemento arrastrable: Interpretación literal del lenguaje">Interpretación literal del lenguaje</div>
+                    <div class="draggable" draggable="true" data-category="repetitivo" aria-grabbed="false" aria-description="Elemento arrastrable: Interés intenso en temas específicos">Interés intenso en temas específicos</div>
+                    
+                    <div class="draggable" draggable="true" data-category="repetitivo" aria-grabbed="false" aria-description="Elemento arrastrable: Hipersensibilidad a ciertos sonidos">Hipersensibilidad a ciertos sonidos</div>
+                </div>
+                
+                <div class="drop-targets">
+                    <div class="drop-target" data-category="comunicacion" aria-dropeffect="move" aria-description="Zona para soltar elementos: Comunicación social">
+                        <h4>Comunicación social</h4>
+                        <p class="drop-instructions" style="display: none;">Arrastre aquí las características relacionadas con la comunicación social</p>
+                    <div class="draggable correct" draggable="false" data-category="comunicacion" aria-grabbed="false" aria-description="Elemento arrastrable: Dificultad para comprender el lenguaje no verbal" style="opacity: 1; cursor: default;">Dificultad para comprender el lenguaje no verbal</div></div>
+                    <div class="drop-target" data-category="repetitivo" aria-dropeffect="move" aria-description="Zona para soltar elementos: Patrones restrictivos y repetitivos">
+                        <h4>Patrones restrictivos y repetitivos</h4>
+                        <p class="drop-instructions" style="display: block;">Arrastre aquí las características relacionadas con patrones repetitivos</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Navegación eliminada según lo solicitado -->
+    </div>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>© 2025 - Estrategias y herramientas para la atención de estudiantes con TEA</p>
+                <p>Material educativo adaptado específicamente para el contexto chileno</p>
+            </div>
+        </div>
+    </footer>
+    
+    <div class="completion-tooltip" id="completion-message">
+        <i class="fas fa-check-circle"></i> ¡Actividad completada correctamente!
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Referencias a elementos de accesibilidad
+            const contrastToggle = document.getElementById('toggle-contrast');
+            const textSizeToggle = document.getElementById('toggle-text-size');
+            const motionToggle = document.getElementById('toggle-motion');
+            const simplifiedToggle = document.getElementById('toggle-simplified');
+            
+            // Control de texto grande
+            textSizeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('large-text');
+                
+                // Actualizar estado visual del botón
+                if (document.body.classList.contains('large-text')) {
+                    textSizeToggle.style.backgroundColor = 'var(--primary-color)';
+                    textSizeToggle.style.fontWeight = 'bold';
+                } else {
+                    textSizeToggle.style.backgroundColor = 'var(--secondary-color)';
+                    textSizeToggle.style.fontWeight = 'normal';
+                }
+                
+                // Ajustar altura de flip cards si es necesario
+                adjustFlipCardsHeight();
+            });
+            
+            // Función para ajustar la altura de las tarjetas según el contenido
+            function adjustFlipCardsHeight() {
+                const flipCards = document.querySelectorAll('.flip-card');
+                
+                flipCards.forEach(card => {
+                    const frontContent = card.querySelector('.flip-card-front').scrollHeight;
+                    const backContent = card.querySelector('.flip-card-back').scrollHeight;
+                    const maxHeight = Math.max(frontContent, backContent) + 40; // 40px para el padding
+                    
+                    if (document.body.classList.contains('large-text') && maxHeight > 300) {
+                        card.style.height = maxHeight + 'px';
+                    }
+                });
+            }
+            
+            // Flip Cards mejorado - ahora funcionan con click o teclado
+            const flipCards = document.querySelectorAll('.flip-card');
+            
+            flipCards.forEach(card => {
+                // Evento click
+                card.addEventListener('click', () => {
+                    card.classList.toggle('flipped');
+                });
+                
+                // Accesibilidad con teclado
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        card.classList.toggle('flipped');
+                    }
+                });
+            });
+            
+            // Acordeón mejorado
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+            
+            accordionHeaders.forEach(header => {
+                // Evento click
+                header.addEventListener('click', () => {
+                    toggleAccordion(header);
+                });
+                
+                // Accesibilidad con teclado
+                header.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        toggleAccordion(header);
+                    }
+                });
+            });
+            
+            function toggleAccordion(header) {
+                const item = header.parentElement;
+                const content = header.nextElementSibling;
+                const icon = header.querySelector('.accordion-icon');
+                const isExpanded = header.getAttribute('aria-expanded') === 'true';
+                
+                // Cerrar todos los acordeones
+                document.querySelectorAll('.accordion-item').forEach(otherItem => {
+                    if (otherItem !== item) {
+                        const otherContent = otherItem.querySelector('.accordion-content');
+                        const otherHeader = otherItem.querySelector('.accordion-header');
+                        const otherIcon = otherHeader.querySelector('.accordion-icon');
+                        
+                        otherContent.style.maxHeight = null;
+                        otherHeader.setAttribute('aria-expanded', 'false');
+                        otherIcon.textContent = '+';
+                        otherItem.classList.remove('active');
+                    }
+                });
+                
+                // Abrir/cerrar el acordeón actual
+                if (!isExpanded) {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    header.setAttribute('aria-expanded', 'true');
+                    icon.textContent = '-';
+                    item.classList.add('active');
+                } else {
+                    content.style.maxHeight = null;
+                    header.setAttribute('aria-expanded', 'false');
+                    icon.textContent = '+';
+                    item.classList.remove('active');
+                }
+            }
+            
+            // Quiz de Verdadero/Falso mejorado
+            const quizQuestions = document.querySelectorAll('.quiz-question');
+            let completedQuestions = 0;
+            
+            quizQuestions.forEach(question => {
+                const options = question.querySelectorAll('.quiz-option');
+                const feedback = question.querySelector('.feedback');
+                const correctAnswer = question.dataset.answer === 'true';
+                const timer = question.querySelector('.timer-progress');
+                
+                options.forEach(option => {
+                    option.addEventListener('click', () => {
+                        // Si ya se ha respondido a esta pregunta, no hacer nada
+                        if (option.classList.contains('selected')) return;
+                        
+                        // Deshabilitar todas las opciones después de la selección
+                        options.forEach(opt => {
+                            opt.classList.remove('selected');
+                            opt.disabled = true;
+                        });
+                        
+                        // Resaltar la opción seleccionada
+                        option.classList.add('selected');
+                        
+                        // Determinar si la respuesta es correcta
+                        const isCorrect = (option.dataset.value === 'true') === correctAnswer;
+                        
+                        // Mostrar temporizador visual
+                        question.querySelector('.visual-timer').style.display = 'block';
+                        timer.style.width = '100%';
+                        
+                        // Efecto de temporizador antes de mostrar feedback
+                        setTimeout(() => {
+                            timer.style.width = '0%';
+                            
+                            // Después del temporizador, mostrar feedback
+                            setTimeout(() => {
+                                feedback.textContent = isCorrect 
+                                    ? '¡Correcto! Tu respuesta es correcta.' 
+                                    : 'Incorrecto. La respuesta correcta es ' + (correctAnswer ? 'Verdadero' : 'Falso') + '.';
+                                
+                                feedback.className = 'feedback ' + (isCorrect ? 'correct' : 'incorrect');
+                                feedback.style.display = 'block';
+                                
+                                // Aplicar estilo adicional a la opción seleccionada
+                                option.style.backgroundColor = isCorrect ? 'var(--success-color)' : 'var(--error-color)';
+                                
+                                // Resaltar la respuesta correcta si se eligió la incorrecta
+                                if (!isCorrect) {
+                                    options.forEach(opt => {
+                                        if ((opt.dataset.value === 'true') === correctAnswer) {
+                                            opt.style.backgroundColor = 'var(--success-color)';
+                                            opt.style.opacity = '0.7';
+                                        }
+                                    });
+                                }
+                                
+                                // Actualizar contador de preguntas completadas
+                                completedQuestions++;
+                                
+                                // Si todas las preguntas están completadas, mostrar un mensaje
+                                if (completedQuestions === quizQuestions.length) {
+                                    showCompletionMessage('¡Has completado todas las preguntas de verdadero/falso!');
+                                }
+                            }, 500);
+                        }, 1000);
+                    });
+                    
+                    // Accesibilidad con teclado
+                    option.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            option.click();
+                        }
+                    });
+                });
+            });
+            
+            // Sistema de arrastrar y soltar mejorado
+            const draggables = document.querySelectorAll('.draggable');
+            const dropTargets = document.querySelectorAll('.drop-target');
+            let draggedItem = null;
+            let correctPlacements = 0;
+            const totalDraggables = draggables.length;
+            
+            // Función para resetear las instrucciones de drop
+            function updateDropInstructions() {
+                dropTargets.forEach(target => {
+                    const items = target.querySelectorAll('.draggable');
+                    const instructions = target.querySelector('.drop-instructions');
+                    
+                    if (instructions) {
+                        if (items.length > 0) {
+                            instructions.style.display = 'none';
+                        } else {
+                            instructions.style.display = 'block';
+                        }
+                    }
+                });
+            }
+            
+            // Inicializar instrucciones
+            updateDropInstructions();
+            
+            // Eventos para elementos arrastrables
+            draggables.forEach(draggable => {
+                // Accesibilidad para lectores de pantalla
+                draggable.setAttribute('aria-description', 'Elemento arrastrable: ' + draggable.textContent);
+                
+                draggable.addEventListener('dragstart', function(e) {
+                    draggedItem = this;
+                    this.classList.add('dragging');
+                    this.setAttribute('aria-grabbed', 'true');
+                    
+                    // Para mejor efecto visual durante el arrastre
+                    setTimeout(() => {
+                        this.style.opacity = '0.4';
+                    }, 0);
+                    
+                    // Establecer datos para la transferencia
+                    e.dataTransfer.setData('text/plain', this.textContent);
+                    e.dataTransfer.effectAllowed = 'move';
+                });
+                
+                draggable.addEventListener('dragend', function() {
+                    this.classList.remove('dragging');
+                    this.style.opacity = '1';
+                    this.setAttribute('aria-grabbed', 'false');
+                    draggedItem = null;
+                    
+                    // Actualizar instrucciones de drop
+                    updateDropInstructions();
+                });
+                
+                // Soporte para dispositivos móviles mediante eventos touch
+                draggable.addEventListener('touchstart', function(e) {
+                    if (this.parentNode.classList.contains('drop-target')) return;
+                    
+                    draggedItem = this;
+                    this.classList.add('dragging');
+                    
+                    // Guardar posición inicial del toque
+                    const touch = e.touches[0];
+                    const offsetX = touch.clientX - this.getBoundingClientRect().left;
+                    const offsetY = touch.clientY - this.getBoundingClientRect().top;
+                    
+                    this.dataset.offsetX = offsetX;
+                    this.dataset.offsetY = offsetY;
+                    
+                    // Prevenir scroll mientras se arrastra
+                    e.preventDefault();
+                });
+                
+                draggable.addEventListener('touchmove', function(e) {
+                    if (!draggedItem) return;
+                    
+                    const touch = e.touches[0];
+                    const offsetX = parseFloat(this.dataset.offsetX);
+                    const offsetY = parseFloat(this.dataset.offsetY);
+                    
+                    // Mover el elemento
+                    this.style.position = 'fixed';
+                    this.style.top = (touch.clientY - offsetY) + 'px';
+                    this.style.left = (touch.clientX - offsetX) + 'px';
+                    this.style.zIndex = '1000';
+                    
+                    // Detectar drop targets debajo del toque
+                    const elementUnderTouch = document.elementFromPoint(touch.clientX, touch.clientY);
+                    const dropTarget = elementUnderTouch ? elementUnderTouch.closest('.drop-target') : null;
+                    
+                    // Limpiar cualquier estilo de hover
+                    dropTargets.forEach(target => target.classList.remove('dragover'));
+                    
+                    // Aplicar estilo de hover si hay un target válido
+                    if (dropTarget) {
+                        dropTarget.classList.add('dragover');
+                    }
+                    
+                    e.preventDefault();
+                });
+                
+                draggable.addEventListener('touchend', function(e) {
+                    if (!draggedItem) return;
+                    
+                    const touch = e.changedTouches[0];
+                    const elementUnderTouch = document.elementFromPoint(touch.clientX, touch.clientY);
+                    const dropTarget = elementUnderTouch ? elementUnderTouch.closest('.drop-target') : null;
+                    
+                    // Limpiar estilos de arrastre
+                    this.style.position = '';
+                    this.style.top = '';
+                    this.style.left = '';
+                    this.style.zIndex = '';
+                    this.classList.remove('dragging');
+                    
+                    // Limpiar estilos de hover
+                    dropTargets.forEach(target => target.classList.remove('dragover'));
+                    
+                    // Procesar el drop si hay un target válido
+                    if (dropTarget) {
+                        processDrop(this, dropTarget);
+                    }
+                    
+                    draggedItem = null;
+                    e.preventDefault();
+                });
+            });
+            
+            // Eventos para objetivos de drop
+            dropTargets.forEach(target => {
+                // Descripción para lectores de pantalla
+                target.setAttribute('aria-description', 'Zona para soltar elementos: ' + target.querySelector('h4').textContent);
+                
+                target.addEventListener('dragover', e => {
+                    e.preventDefault();
+                    target.classList.add('dragover');
+                });
+                
+                target.addEventListener('dragleave', () => {
+                    target.classList.remove('dragover');
+                });
+                
+                target.addEventListener('drop', e => {
+                    e.preventDefault();
+                    target.classList.remove('dragover');
+                    
+                    if (draggedItem) {
+                        processDrop(draggedItem, target);
+                    }
+                });
+            });
+            
+            function processDrop(item, target) {
+                if (item.dataset.category === target.dataset.category) {
+                    // Categoría correcta
+                    target.appendChild(item);
+                    item.classList.remove('incorrect');
+                    item.classList.add('correct');
+                    item.setAttribute('draggable', 'false');
+                    item.style.cursor = 'default';
+                    
+                    // Incrementar contador de colocaciones correctas
+                    correctPlacements++;
+                    
+                    // Comprobar si se completó la actividad
+                    if (correctPlacements === totalDraggables) {
+                        showCompletionMessage('¡Felicitaciones! Has clasificado correctamente todas las características.');
+                    }
+                } else {
+                    // Categoría incorrecta, aplicar animación de error
+                    item.classList.add('incorrect');
+                    
+                    // Eliminar la clase después de la animación
+                    setTimeout(() => {
+                        item.classList.remove('incorrect');
+                    }, 800);
+                }
+            }
+            
+            // Función para mostrar mensaje de finalización
+            function showCompletionMessage(message) {
+                const tooltip = document.getElementById('completion-message');
+                tooltip.textContent = message;
+                tooltip.classList.add('show');
+                
+                setTimeout(() => {
+                    tooltip.classList.remove('show');
+                }, 3000);
+            }
+            
+            // Inicializar efectos de aparición secuenciales
+            function initSequentialAppearance() {
+                const sections = document.querySelectorAll('section');
+                sections.forEach((section, index) => {
+                    section.style.animationDelay = (index * 0.2) + 's';
+                });
+            }
+            
+            // Ejecutar después de cargar la página
+            initSequentialAppearance();
+            
+            // Aplicar animaciones a elementos cuando son visibles
+            function handleIntersections(entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }
+            
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+            
+            const observer = new IntersectionObserver(handleIntersections, observerOptions);
+            
+            document.querySelectorAll('.flip-cards-container, .accordion-item, .icon-item, .quiz-question').forEach(item => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(20px)';
+                item.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+                observer.observe(item);
+            });
+        });
+    </script>
+
+
+</body></html>
