@@ -1878,14 +1878,10 @@
             const totalMatchable = draggables.length;
             
             // Función para verificar si todos los elementos están en su lugar
-            function checkAllMatched() {
-                matchedCount++;
-                if (matchedCount === totalMatchable) {
-                    setTimeout(() => {
-                        alert('¡Excelente! Has reorganizado correctamente todos los objetivos educativos desde la perspectiva de la neurodiversidad.');
-                    }, 500);
-                }
-            }
+function checkAllMatched() {
+    matchedCount++;
+    // Se eliminó el mensaje de alerta
+}
             
             // Para cada elemento arrastrable
             draggables.forEach(draggable => {
